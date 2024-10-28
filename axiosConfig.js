@@ -9,14 +9,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const username = import.meta.env.VITE_REACT_APP_API_USERNAME;
-        const password = import.meta.env.VITE_REACT_APP_API_PASSWORD;
+        const token = import.meta.env.VITE_REACT_APP_API_TOKEN;
 
-        if(username && password){
-            config.auth = {
-                username: username,
-                password: password
-            };
+        if(token){
+            config.headers['Authorization'] = `Bearer ${token}`
         }
         return config;
     },
