@@ -27,11 +27,10 @@ const Login = () => {
   })
 
   const navigate = useNavigate();
-  const loginAction = useAuth()
+  const {loginAction} = useAuth()
 
   const handleLogin = async (e) => {
     e.preventDefault();
-  
     try {
       await loginAction(input)
       navigate('/dashboard')

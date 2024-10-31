@@ -19,7 +19,7 @@ const AuthProvider = ({children}) => {
                 setIsAuthenticated(true)
                 setUser(response.data.user)
                 setToken(response.data)
-                localStorage('token', response.data)
+                localStorage.setItem('token', response.data)
                 return          
             }
             throw new Error(response.message)
@@ -28,7 +28,7 @@ const AuthProvider = ({children}) => {
         }
     }
 
-    const logout = () => {
+    const logOut = () => {
         setUser(null)
         setToken('')
         localStorage.removeItem('token')
@@ -36,7 +36,7 @@ const AuthProvider = ({children}) => {
         setIsAuthenticated(false)
     }
 
-    return <AuthContext.Provider value={{isAuthenticated, token, user, loginAction, logout}}>
+    return <AuthContext.Provider value={{isAuthenticated, token, user, loginAction, logOut}}>
         {children}
     </AuthContext.Provider>
 }
