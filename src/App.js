@@ -6,6 +6,8 @@ import { CSpinner, useColorModes } from '@coreui/react'
 import './scss/style.scss'
 import ProtectedRoute from './views/pages/ProtectedRoute'
 import AuthProvider from './views/pages/AuthProvider'
+import RegistrationSuccessful from './views/pages/register/RegistrationSuccessful'
+import VerificationSuccessful from './views/pages/register/VerificationSuccessful'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
@@ -45,6 +47,8 @@ const App = () => {
         }
       >
         <Routes>
+          <Route exact path='/registrationSuccessful' name='Registration Successful' element={<RegistrationSuccessful></RegistrationSuccessful>} />,
+          <Route exact path='/verificationSuccessful' name='Verification Successful' element={<VerificationSuccessful></VerificationSuccessful>} />,          
           <Route exact path="/login" name="Login Page" element={<Login />} />
           <Route exact path="/register" name="Register Page" element={<Register />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   CButton,
   CCard,
@@ -13,8 +13,42 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
+
+  const [accountData, setAccountData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: ''
+  })
+
+  const navigate = useNavigate()
+
+  const handleChange = (e) => {
+    setAccountData({
+      ...accountData, 
+      [e.target.id]: e.target.value });
+  }
+
+  const handleAccountCreation = async (e) => {
+    e.preventDefault()
+    console.log(accountData)
+    try {
+      const baseURL = import.meta.env.VITE_REACT_APP_API_BASE_URL
+      const response =  await axios.post(`${baseURL}/register`, accountData)
+
+      if(response.status == 201 || response.status == 200){
+        navigate('/registrationSuccessful')
+      }
+  } catch(error){
+    console.log(error);
+  }
+}
+
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -29,11 +63,41 @@ const Register = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" autoComplete="username" />
+                    <CFormInput placeholder="Firstname" 
+                      autoComplete="firstName"                       
+                      id="firstName" 
+                      onChange={handleChange}  
+                      value={accountData.firstName}  
+                      />
+                  </CInputGroup>
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput placeholder="Lastname" autoComplete="lastName"
+                                          id="lastName" 
+                                          onChange={handleChange}  
+                                          value={accountData.lastName}  
+                     />
+                  </CInputGroup>                                    
+                  <CInputGroup className="mb-3">
+                    <CInputGroupText>
+                      <CIcon icon={cilUser} />
+                    </CInputGroupText>
+                    <CFormInput placeholder="Username" 
+                    autoComplete="username"
+                    id="username" 
+                    onChange={handleChange}  
+                    value={accountData.username}                       
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" autoComplete="email" />
+                    <CFormInput placeholder="Email" autoComplete="email" 
+                                                              id="email" 
+                                                              onChange={handleChange}  
+                                                              value={accountData.email}  
+                    />
                   </CInputGroup>
                   <CInputGroup className="mb-3">
                     <CInputGroupText>
@@ -43,6 +107,9 @@ const Register = () => {
                       type="password"
                       placeholder="Password"
                       autoComplete="new-password"
+                      id="password" 
+                      onChange={handleChange}  
+                      value={accountData.password}  
                     />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
@@ -56,7 +123,8 @@ const Register = () => {
                     />
                   </CInputGroup>
                   <div className="d-grid">
-                    <CButton color="success">Create Account</CButton>
+                    <CButton color="success" onClick={handleAccountCreation}>
+                      Create Account</CButton>
                   </div>
                 </CForm>
               </CCardBody>

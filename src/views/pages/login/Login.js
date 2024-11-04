@@ -17,8 +17,6 @@ import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useAuth } from '../AuthProvider'
 
-
-
 const Login = () => {
 
   const [input, setInput] = useState({

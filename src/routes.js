@@ -1,6 +1,8 @@
 import { element } from 'prop-types'
 import React from 'react'
 import Brand from './components/Brand'
+import RegistrationSuccessful from './views/pages/register/RegistrationSuccessful'
+import VerificationSuccessful from './views/pages/register/VerificationSuccessful'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -54,6 +56,8 @@ const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
 
 const routes = [
+  { path: '/registrationSuccessful', name: 'Registration Successful', element: RegistrationSuccessful},
+  { path: '/verificationSuccessful', name: 'Verification Successful', element: VerificationSuccessful},
   { path: '/', exact: true, name: 'Home' },
   { path: '/brands', name: 'Brand', element: Brand},
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
